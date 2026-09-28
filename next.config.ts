@@ -1,0 +1,38 @@
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  reactStrictMode: true,
+  poweredByHeader: false,
+  eslint: {
+    // Lint is run explicitly in CI via `npm run lint`; don't fail the
+    // Cloudflare build on stylistic rules.
+    ignoreDuringBuilds: true,
+  },
+  images: {
+    // Trip cover photography is served from Unsplash's CDN; the app never
+    // uploads or stores the images itself.
+    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
+  },
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=63072000; includeSubDomains; preload",
+          },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(), payment=()",
+          },
+        ],
+      },
+    ];
+  },
+};
+
+export default nextConfig;

@@ -1,0 +1,241 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Wayfarer — warm ivory paper with a deep petrol-teal ground for the nav,
+ * hero and footer, and a brass accent throughout. Real photography carries
+ * the emotion; the UI chrome stays quiet and gets out of the way.
+ */
+
+:root {
+  color-scheme: light;
+
+  --ivory: #faf6ee;
+  --ivory-dim: #e4dbc7;
+  --paper: #ffffff;
+
+  --teal-deep: #061718;
+  --teal: #082021;
+  --teal-raised: #0e3436;
+  --teal-high: #164a4d;
+
+  --brass: #b9832a;
+  --brass-bright: #dca636;
+  --brass-deep: #88591c;
+  --brass-line: rgba(185, 131, 42, 0.32);
+  --brass-line-soft: rgba(185, 131, 42, 0.16);
+
+  --ink: #16211f;
+  --ink-dim: #55645f;
+
+  --good: #2f7a4d;
+  --good-bg: #e7f3ea;
+  --bad: #b13a3a;
+  --bad-bg: #fbeaea;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  background-color: var(--ivory);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(185, 131, 42, 0.24);
+  color: var(--ink);
+}
+
+@layer components {
+  /* ---------------------------------------------------------------- cards */
+
+  .wf-card {
+    @apply relative rounded-2xl bg-white p-6;
+    border: 1px solid rgba(22, 33, 31, 0.08);
+    box-shadow: 0 10px 30px -18px rgba(6, 23, 24, 0.25);
+  }
+
+  .wf-card-dark {
+    @apply relative rounded-2xl p-6;
+    background: linear-gradient(180deg, rgba(22, 74, 77, 0.9), rgba(6, 23, 24, 0.96));
+    border: 1px solid rgba(220, 166, 54, 0.22);
+    color: var(--ivory);
+  }
+
+  /* --------------------------------------------------------------- inputs */
+
+  .wf-input {
+    @apply w-full rounded-lg px-3.5 py-2.5 text-sm outline-none transition;
+    background: var(--paper);
+    border: 1px solid rgba(22, 33, 31, 0.15);
+    color: var(--ink);
+  }
+
+  .wf-input::placeholder {
+    color: rgba(85, 100, 95, 0.55);
+  }
+
+  .wf-input:focus {
+    border-color: var(--brass);
+    box-shadow: 0 0 0 3px rgba(185, 131, 42, 0.16);
+  }
+
+  .wf-label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-[0.1em];
+    color: var(--teal-raised);
+  }
+
+  /* -------------------------------------------------------------- buttons */
+
+  .wf-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5
+           text-sm font-semibold transition focus:outline-none
+           focus-visible:ring-2 focus-visible:ring-brand-500/50
+           disabled:cursor-not-allowed disabled:opacity-55;
+  }
+
+  .wf-btn-primary {
+    @apply wf-btn;
+    background: linear-gradient(180deg, #e6bd5c, #b9832a);
+    color: #1c1206;
+    border: 1px solid rgba(230, 189, 92, 0.85);
+    box-shadow: 0 10px 24px -12px rgba(185, 131, 42, 0.65);
+    font-weight: 700;
+  }
+
+  .wf-btn-primary:hover:not(:disabled) {
+    background: linear-gradient(180deg, #eecb75, #c8912e);
+  }
+
+  .wf-btn-secondary {
+    @apply wf-btn;
+    background: rgba(6, 23, 24, 0.04);
+    border: 1px solid rgba(22, 33, 31, 0.16);
+    color: var(--teal-deep);
+  }
+
+  .wf-btn-secondary:hover:not(:disabled) {
+    border-color: rgba(22, 33, 31, 0.32);
+    background: rgba(6, 23, 24, 0.07);
+  }
+
+  .wf-btn-ghost-light {
+    @apply wf-btn;
+    background: rgba(250, 246, 238, 0.08);
+    border: 1px solid rgba(250, 246, 238, 0.35);
+    color: var(--ivory);
+  }
+
+  .wf-btn-ghost-light:hover:not(:disabled) {
+    background: rgba(250, 246, 238, 0.16);
+  }
+
+  /* ---------------------------------------------------------------- text */
+
+  .wf-muted {
+    color: var(--ink-dim);
+  }
+
+  .wf-display {
+    font-family: var(--font-display), Georgia, serif;
+  }
+
+  /* -------------------------------------------------------------- alerts */
+
+  .wf-alert {
+    @apply rounded-lg px-4 py-3 text-sm;
+    border: 1px solid;
+  }
+
+  .wf-alert-error {
+    @apply wf-alert;
+    background: var(--bad-bg);
+    border-color: rgba(177, 58, 58, 0.35);
+    color: #7a2323;
+  }
+
+  .wf-alert-ok {
+    @apply wf-alert;
+    background: var(--good-bg);
+    border-color: rgba(47, 122, 77, 0.35);
+    color: #1f5535;
+  }
+
+  .wf-alert-warn {
+    @apply wf-alert;
+    background: #fdf3e2;
+    border-color: rgba(185, 131, 42, 0.4);
+    color: #6b4a15;
+  }
+
+  /* A small pill used for status badges. */
+  .wf-pill {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em];
+    background: rgba(185, 131, 42, 0.12);
+    border: 1px solid var(--brass-line);
+    color: var(--brass-deep);
+  }
+
+  .wf-pill-teal {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em];
+    background: rgba(14, 52, 54, 0.08);
+    border: 1px solid rgba(14, 52, 54, 0.25);
+    color: var(--teal-raised);
+  }
+
+  .wf-pill-muted {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-[0.1em];
+    background: rgba(22, 33, 31, 0.06);
+    border: 1px solid rgba(22, 33, 31, 0.16);
+    color: var(--ink-dim);
+  }
+
+  /* The track behind every progress bar. */
+  .wf-track {
+    @apply h-2 overflow-hidden rounded-full;
+    background: rgba(22, 33, 31, 0.08);
+  }
+
+  .wf-fill {
+    @apply h-full rounded-full transition-all;
+    background: linear-gradient(90deg, var(--brass-deep), var(--brass-bright));
+  }
+
+  .wf-fill-over {
+    @apply h-full rounded-full transition-all;
+    background: linear-gradient(90deg, #8a2c2c, #c65a5a);
+  }
+
+  /* ------------------------------------------------------------ sections */
+
+  .wf-section {
+    @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

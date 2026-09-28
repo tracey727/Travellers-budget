@@ -1,0 +1,5 @@
+# Copy to .dev.vars for `npm run cf:preview` (runs against the real Workers runtime).
+
+DATABASE_URL="postgresql://user:pass@ep-xxx-pooler.region.aws.neon.tech/neondb?sslmode=require"
+SESSION_SECRET="change-me"
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
