@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "wayfarer-budget",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-03-25",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "placement": {
+    "mode": "smart"
+  }
+  // NOTE: deliberately no "vars" block.
+  //
+  // `wrangler deploy` treats this file as the source of truth for plain-text
+  // variables and REPLACES whatever is set in the dashboard. Declaring even one
+  // var here silently wipes every other plain-text variable on each deploy —
+  // including DATABASE_URL.
+  //
+  // All configuration is therefore set in the dashboard (Settings → Variables
+  // and Secrets), or with `wrangler secret put`, and survives deploys.
+
+  // Optional: KV-backed incremental cache. Create the namespace with
+  //   wrangler kv namespace create NEXT_INC_CACHE_KV
+  // then add the id here and enable it in open-next.config.ts.
+  // "kv_namespaces": [
+  //   { "binding": "NEXT_INC_CACHE_KV", "id": "<your-kv-namespace-id>" }
+  // ]
+}
