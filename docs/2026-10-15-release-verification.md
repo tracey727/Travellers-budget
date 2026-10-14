@@ -8,6 +8,7 @@ The real application targets `wayfarer-budget`. `travellers-budget` is a legacy 
 - Cloudflare build settings now use `npm run cf:build` then `npx wrangler deploy`.
 - Last recorded build failed: it ran `npm run build`; OpenNext deployment could not find its compiled config.
 - New Worker's DATABASE_URL binding is `secret_text`; SESSION_SECRET was absent. No credential values were read.
+- workers.dev is disabled in provider settings; the release config now explicitly enables the intended public app address.
 - Public `/api/health` rendered Cloudflare's empty-site page. Application deployment and database/schema readiness are unverified.
 - Cloudflare connector refused the attempt to add SESSION_SECRET: "No access to the specified resource." No successful change is claimed.
 
