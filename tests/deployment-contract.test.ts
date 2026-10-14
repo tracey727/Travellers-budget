@@ -31,3 +31,9 @@ test("the matching initial migration declares the five required isolated app tab
   }
   assert.equal((schema.match(/CREATE TABLE "/g) || []).length,5);
 });
+
+
+test("all health outcomes identify the exact standalone Worker", () => {
+  assert.equal((health.match(/service: "wayfarer-budget"/g) || []).length, 3);
+  assert.doesNotMatch(health, /ensureSchema|CREATE TABLE|ALTER TABLE/);
+});
