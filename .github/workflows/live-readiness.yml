@@ -1,0 +1,19 @@
+name: Read-only live readiness
+on:
+  pull_request:
+    paths:
+      - scripts/verify-live-readiness.mjs
+      - .github/workflows/live-readiness.yml
+  push:
+    branches: [audit/wayfarer-readiness-20261015]
+permissions:
+  contents: read
+jobs:
+  public-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/verify-live-readiness.mjs
