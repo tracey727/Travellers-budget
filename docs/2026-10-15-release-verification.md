@@ -6,11 +6,11 @@ The real application targets `wayfarer-budget`. `travellers-budget` is a legacy 
 
 - Canonical production branch: `claude/travellers-budget-audit-build-m1pw1v`.
 - Cloudflare build settings now use `npm run cf:build` then `npx wrangler deploy`.
-- Last recorded build failed: it ran `npm run build`; OpenNext deployment could not find its compiled config.
-- New Worker's DATABASE_URL binding is `secret_text`; SESSION_SECRET was absent. No credential values were read.
+- Earlier build failed because it used `npm run build`. The corrected build of commit `557bd5a8d30d79226b53b3c35d30e1c5f8dc35c8` compiled successfully with `npm run cf:build`, then deployment stopped because SESSION_SECRET was missing.
+- At 10:20 AEST on 15 October, both DATABASE_URL and SESSION_SECRET are verified as `secret_text` on the correct Worker. The owner saved the missing secret. Values, entropy and database target were not read or certified.
 - workers.dev is disabled in provider settings; the release config now explicitly enables the intended public app address.
 - Public `/api/health` rendered Cloudflare's empty-site page. Application deployment and database/schema readiness are unverified.
-- Cloudflare connector refused the attempt to add SESSION_SECRET: "No access to the specified resource." No successful change is claimed.
+- Saving the secret created a dashboard version, but did not rebuild the application. The direct build retry API returned an authentication error. This documentation-only update retries the configured GitHub build path without changing the already CI-passing application code.
 
 ## Release gate
 
